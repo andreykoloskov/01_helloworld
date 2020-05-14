@@ -33,7 +33,8 @@ else()
 endif()
 
 set_target_properties(test_version PROPERTIES
-    ${Boost_LIBRARIES}
+    #${Boost_LIBRARIES}
+	COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
     INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
 )
 
