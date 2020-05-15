@@ -1,8 +1,8 @@
-dist: xenial
+dist: centos7
 language: cpp
-compiler: g++
+compiler: clang
 addons:
-  yum:
+  apt:
     packages:
     - libboost-test-dev
     - libspdlog-dev
