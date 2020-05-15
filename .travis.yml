@@ -1,6 +1,6 @@
-dist: centos7
+dist: xenial
 language: cpp
-compiler: g++
+compiler: clang
 addons:
   apt:
     packages:
