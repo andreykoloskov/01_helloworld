@@ -1,4 +1,4 @@
-dist: centos/7
+dist: xenial
 language: cpp
 compiler: g++
 addons:
