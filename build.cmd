@@ -9,6 +9,7 @@ md build
 cd build
 
 set TRAVIS_BUILD_NUMBER=1
+set INTERNAL_BUILD_VARIABLE=1
 
 echo "call cmake"
 cmake ^

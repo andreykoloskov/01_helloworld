@@ -7,6 +7,7 @@ mkdir build_linux
 cd build_linux
 
 export TRAVIS_BUILD_NUMBER=1
+export INTERNAL_BUILD_VARIABLE=1
 
 cmake3 -D CMAKE_C_FLAGS=-m64 \
        	-DBOOST_ROOT=/mnt/hgfs/Documents/post_msu_prac/boost_1_73_0_linux \
