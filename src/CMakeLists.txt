@@ -34,7 +34,7 @@ else()
     target_compile_options(helloworld_cli PRIVATE -Wall -Wextra -Wpedantic -Werror)
 endif()
 
-if (WIN32 OR (${CMAKE_SYSTEM} MATCHES ".*el7.*"))
+if (WIN32 OR ((${CMAKE_SYSTEM_NAME} STREQUAL "Linux") AND (${CMAKE_SYSTEM} MATCHES ".*el7.*")))
     set_target_properties(test_version PROPERTIES
         INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
     )
@@ -59,7 +59,7 @@ install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
 
 if (WIN32)
     set(CPACK_GENERATOR WIX)
-elseif (${CMAKE_SYSTEM} MATCHES ".*el7.*")
+elseif ((${CMAKE_SYSTEM_NAME} STREQUAL "Linux") AND (${CMAKE_SYSTEM} MATCHES ".*el7.*"))
     set(CPACK_GENERATOR RPM)
 else ()
     set(CPACK_GENERATOR DEB)
@@ -71,7 +71,7 @@ set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 
 set(CPACK_PACKAGE_CONTACT andreykoloskov.ru@gmail.com)
 
-if (NOT WIN32 AND NOT (${CMAKE_SYSTEM} MATCHES ".*el7.*"))
+if (NOT WIN32 AND NOT ((${CMAKE_SYSTEM_NAME} STREQUAL "Linux") AND (${CMAKE_SYSTEM} MATCHES ".*el7.*")))
     set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
 endif()
 
