@@ -3,6 +3,11 @@ if exist build (
     rd /s /q build
 )
 
+if exist src\gen (
+    echo "DELETE gen directory"
+    rd /s /q src\gen
+)
+
 echo "CREATE build directory"
 md build
 

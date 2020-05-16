@@ -3,6 +3,7 @@
 echo "CREATE linux directory"
 
 rm -rf build_linux
+rm -rf src/gen
 mkdir build_linux
 cd build_linux
 

@@ -15,7 +15,7 @@ endif ()
 find_package(Threads REQUIRED)
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
-configure_file(version.h.in ${PROJECT_SOURCE_DIR}/src/version.h)
+configure_file(version.h.in ${PROJECT_SOURCE_DIR}/src/gen/version.h)
 
 add_executable(helloworld_cli main.cpp)
 
