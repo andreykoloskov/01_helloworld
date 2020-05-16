@@ -32,9 +32,16 @@ else()
     target_compile_options(helloworld_cli PRIVATE -Wall -Wextra -Wpedantic -Werror)
 endif()
 
-set_target_properties(test_version PROPERTIES
-    INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
-)
+if (WIN32 OR (${CMAKE_SYSTEM} MATCHES ".*el7.*"))
+    set_target_properties(test_version PROPERTIES
+        INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
+    )
+else ()
+    set_target_properties(test_version PROPERTIES
+        COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
+        INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
+    )
+endif ()
 
 target_link_libraries(helloworld_cli
     helloworld
@@ -50,9 +57,10 @@ install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
 
 if (WIN32)
     set(CPACK_GENERATOR WIX)
-else ()
+elseif (${CMAKE_SYSTEM} MATCHES ".*el7.*")
     set(CPACK_GENERATOR RPM)
-	#set(CPACK_GENERATOR DEB)
+else ()
+    set(CPACK_GENERATOR DEB)
 endif()
 
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
@@ -61,7 +69,9 @@ set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 
 set(CPACK_PACKAGE_CONTACT andreykoloskov.ru@gmail.com)
 
-#set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+if (NOT WIN32 AND NOT (${CMAKE_SYSTEM} MATCHES ".*el7.*"))
+    set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+endif()
 
 include(CPack)
 

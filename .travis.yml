@@ -1,6 +1,6 @@
 dist: xenial
 language: cpp
-compiler: g++
+compiler: clang
 addons:
   apt:
     packages:
@@ -15,4 +15,4 @@ deploy:
   provider: script
   skip_cleanup: true
   script:
-  - curl -f -T helloworld-0.0.$TRAVIS_BUILD_NUMBER-Linux.rpm -uandreykoloskov:$BINTRAY_API_KEY "https://api.bintray.com/content/andreykoloskov/cpp/homework/$TRAVIS_BUILD_NUMBER/helloworld-0.0.$TRAVIS_BUILD_NUMBER-Linux.rpm;deb_distribution=xenial;deb_component=main;deb_architecture=amd64;publish=1"
+  - curl -f -T helloworld-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uandreykoloskov:$BINTRAY_API_KEY "https://api.bintray.com/content/andreykoloskov/cpp/homework/$TRAVIS_BUILD_NUMBER/helloworld-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=xenial;deb_component=main;deb_architecture=amd64;publish=1"
