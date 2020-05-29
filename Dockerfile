@@ -1,5 +1,5 @@
-FROM gcc:latest as build
-#FROM ubuntu:20.04
+#FROM gcc:latest as build
+FROM ubuntu:20.04
 COPY . /app
 
 RUN apt-get update \
