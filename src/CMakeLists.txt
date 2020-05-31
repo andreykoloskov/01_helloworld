@@ -71,10 +71,6 @@ set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 
 set(CPACK_PACKAGE_CONTACT andreykoloskov.ru@gmail.com)
 
-#if (NOT WIN32 AND NOT ((${CMAKE_SYSTEM_NAME} STREQUAL "Linux") AND (${CMAKE_SYSTEM} MATCHES ".*el7.*")))
-#    set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
-#endif()
-
 include(CPack)
 
 add_test(NAME helloworld_tests COMMAND test_version)
