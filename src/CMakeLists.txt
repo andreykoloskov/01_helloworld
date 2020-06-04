@@ -34,7 +34,7 @@ else()
     target_compile_options(helloworld_cli PRIVATE -Wall -Wextra -Wpedantic -Werror)
 endif()
 
-if (WIN32 OR ((${CMAKE_SYSTEM_NAME} STREQUAL "Linux") AND (${CMAKE_SYSTEM} MATCHES ".*el7.*")))
+if (WIN32)
     set_target_properties(test_version PROPERTIES
         INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
     )
@@ -56,14 +56,6 @@ target_link_libraries(test_version
 )
 
 install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
-
-if (WIN32)
-    set(CPACK_GENERATOR WIX)
-elseif ((${CMAKE_SYSTEM_NAME} STREQUAL "Linux") AND (${CMAKE_SYSTEM} MATCHES ".*el7.*"))
-    set(CPACK_GENERATOR RPM)
-else ()
-    set(CPACK_GENERATOR DEB)
-endif()
 
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")

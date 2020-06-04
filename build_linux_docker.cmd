@@ -3,14 +3,23 @@ if exist packages (
 )
 md packages
 
+::ubuntu
 docker build -f ./DockerfileUbuntu -t andreykoloskov/helloworld:v1 .
 docker run --rm --name helloworld -d andreykoloskov/helloworld:v1 /bin/sh -c "while true; do sleep 1; done"
 docker cp helloworld:/app/build_linux/deb/ packages/
 docker stop helloworld
 docker run --rm --name helloworld andreykoloskov/helloworld:v1
-
 docker build -f ./DockerfileUbuntuTest -t andreykoloskov/helloworld:v2 .
 docker run --rm --name helloworld andreykoloskov/helloworld:v2
+
+::centos
+docker build -f ./DockerfileCentos -t andreykoloskov/helloworld:v3 .
+docker run --rm --name helloworld -d andreykoloskov/helloworld:v3 /bin/sh -c "while true; do sleep 1; done"
+docker cp helloworld:/app/build_linux/rpm/ packages/
+docker stop helloworld
+docker run --rm --name helloworld andreykoloskov/helloworld:v3
+docker build -f ./DockerfileCentosTest -t andreykoloskov/helloworld:v4 .
+docker run --rm --name helloworld andreykoloskov/helloworld:v4
 
 
 :: docker run -it helloworld /bin/bash

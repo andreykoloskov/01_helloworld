@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM centos:8
 
 MAINTAINER Andrey Koloskov <andreykoloskov.ru@gmail.com>
 
@@ -7,8 +7,8 @@ COPY CMakeLists.txt /app/
 
 WORKDIR /app
 
-RUN apt-get update \
-    && apt-get install -y gcc g++ cmake libboost-test-dev libspdlog-dev \
+RUN yum -y update \
+    && yum -y install gcc gcc-c++ make cmake boost-devel boost-test rpm-build \
     && echo "CREATE linux directory" \
     && rm -rf build_linux \
     && mkdir build_linux \
@@ -18,10 +18,10 @@ RUN apt-get update \
 			 ../ \
 	&& cmake --build . --config Release -- -j12 \
     && ctest . -C Release \
-    && cpack -C Release -G DEB \
-	&& mkdir deb \
-	&& cp *.deb deb/
+    && cpack -C Release -G RPM \
+	&& mkdir rpm \
+	&& cp *.rpm rpm/
 
 CMD build_linux/bin/helloworld_cli \
-    && echo "\n" \
+    && echo \
 	&& build_linux/bin/test_version

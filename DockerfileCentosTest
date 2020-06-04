@@ -1,0 +1,14 @@
+FROM centos:8
+
+MAINTAINER Andrey Koloskov <andreykoloskov.ru@gmail.com>
+
+COPY packages/rpm/ /app/
+
+WORKDIR /app
+
+RUN yum -y update \
+    && yum -y install gcc gcc-c++ make cmake boost-devel boost-test rpm-build \
+    && yum -y install $(find -name *.rpm)
+	
+CMD /bin/helloworld_cli
+

@@ -30,4 +30,4 @@ cmake -E env CTEST_OUTPUT_ON_FAILURE=1
 ctest . -C Release
 ctest . -C Debug
 
-cpack -C Release
+cpack -C Release -G WIX
