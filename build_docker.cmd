@@ -3,11 +3,18 @@ if exist packages (
 )
 md packages
 
+::windows
+call build_windows.cmd
+copy build\*.msi packages\
+.\build\bin\Release\helloworld_cli.exe
+
 ::ubuntu
 docker build -f ./DockerfileUbuntu -t andreykoloskov/helloworld:v1 .
 docker run --rm --name helloworld -d andreykoloskov/helloworld:v1 /bin/sh -c "while true; do sleep 1; done"
 docker cp helloworld:/app/build_linux/deb/ packages/
 docker stop helloworld
+copy packages\deb\*.deb packages\
+rd /s /q packages\deb
 docker run --rm --name helloworld andreykoloskov/helloworld:v1
 docker build -f ./DockerfileUbuntuTest -t andreykoloskov/helloworld:v2 .
 docker run --rm --name helloworld andreykoloskov/helloworld:v2
@@ -17,10 +24,11 @@ docker build -f ./DockerfileCentos -t andreykoloskov/helloworld:v3 .
 docker run --rm --name helloworld -d andreykoloskov/helloworld:v3 /bin/sh -c "while true; do sleep 1; done"
 docker cp helloworld:/app/build_linux/rpm/ packages/
 docker stop helloworld
+copy packages\rpm\*.rpm packages\
+rd /s /q packages\rpm
 docker run --rm --name helloworld andreykoloskov/helloworld:v3
 docker build -f ./DockerfileCentosTest -t andreykoloskov/helloworld:v4 .
 docker run --rm --name helloworld andreykoloskov/helloworld:v4
-
 
 :: docker run -it helloworld /bin/bash
 :: docker rm $(docker ps -a -q)

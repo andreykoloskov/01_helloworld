@@ -31,3 +31,5 @@ ctest . -C Release
 ctest . -C Debug
 
 cpack -C Release -G WIX
+
+cd ../

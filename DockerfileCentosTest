@@ -2,7 +2,7 @@ FROM centos:8
 
 MAINTAINER Andrey Koloskov <andreykoloskov.ru@gmail.com>
 
-COPY packages/rpm/ /app/
+COPY packages/*.rpm /app/
 
 WORKDIR /app
 
